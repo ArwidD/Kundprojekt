@@ -1,0 +1,21 @@
+.header {
+  background-color: white; /* Bakgrundsfärg på headern */
+  color: #631f63;
+  font-weight: bold; /* Fetstil för texten */
+  top: 0; /* Fäster i toppen av sidan */
+  padding: 20px; /* Inre marginal */
+  width: 100%; /* Full bredd */
+  height: 90px; /* Höjd på headern */
+  box-sizing: border-box; /* Inkluderar padding i bredden */
+  z-index: 1000; /* Lägger headern över annat innehåll */
+}
+.buttons #buttons {
+  display: inline-flex; /* Lägger knapparna på rad */
+  padding: 5px 25px; /* Inre marginal */
+  justify-content: center; /* Centrerar knapparna horisontellt */
+  align-items: center; /* Centrerar vertikalt */
+  gap: 5px; /* Avstånd mellan knapparna */
+  position: absolute; /* Positionerar knapparna i headern */
+  top: 25px; /* Avstånd från toppen */
+  right: 50px; /* Avstånd från höger */
+}
