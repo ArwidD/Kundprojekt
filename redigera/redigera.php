@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $message = "✅ Informationen har uppdaterats!";
+    $message = "Informationen har uppdaterats!";
 }
 
 // Hämta information för vald årskurs
