@@ -104,15 +104,15 @@ if ($arskursID > 0) {
                     <textarea name="new_info[]" rows="3" placeholder="Skriv ny information här..."></textarea>
                 </div>
             </div>
-            <button type="button" onclick="addNewInfo()">+ Lägg till en ruta till</button>
+            <button type="button" onclick="addNewInfo()">Lägg till en ruta till</button>
             <br><br>
-            <button type="submit">💾 Spara ändringar</button>
+            <button type="submit">Spara ändringar</button>
         </form>
     <?php else: ?>
         <p>Ingen årskurs vald.</p>
     <?php endif; ?>
 
-    <p><a href="redigera.html">⬅ Tillbaka</a></p>
+    <p><a href="redigera.html">Tillbaka</a></p>
 
     <script>
         function addNewInfo() {
