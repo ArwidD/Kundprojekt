@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . '../auth.php';
+
+
+
 $host = "localhost";
 $user = "root";
 $pass = "";
@@ -72,6 +76,7 @@ if ($arskursID > 0) {
 ?>
 <!DOCTYPE html>
 <html lang="sv">
+
 <head>
     <meta charset="UTF-8">
     <title>Redigera årskurs</title>
@@ -81,18 +86,21 @@ if ($arskursID > 0) {
             width: 100%;
             margin-bottom: 10px;
         }
+
         .info-block {
             margin-bottom: 20px;
             border: 1px solid #ddd;
             padding: 10px;
             border-radius: 6px;
         }
+
         .new-info {
             background: #f9f9f9;
             padding: 10px;
             border: 1px dashed #ccc;
             margin-bottom: 10px;
         }
+
         .delete-btn {
             background: #d9534f;
             color: white;
@@ -101,11 +109,13 @@ if ($arskursID > 0) {
             border-radius: 4px;
             cursor: pointer;
         }
+
         .delete-btn:hover {
             background: #c9302c;
         }
     </style>
 </head>
+
 <body>
     <?php if ($arskursID > 0): ?>
         <h1>Redigera information för Årskurs: <?php echo htmlspecialchars($arskursNamn); ?></h1>
@@ -153,4 +163,5 @@ if ($arskursID > 0) {
         }
     </script>
 </body>
+
 </html>
