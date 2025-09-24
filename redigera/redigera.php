@@ -1,5 +1,4 @@
 <?php
-
 $host = "localhost";
 $user = "root";
 $pass = "";
@@ -13,30 +12,42 @@ if ($conn->connect_error) {
 $message = "";
 $arskursID = isset($_GET['arskurs']) ? intval($_GET['arskurs']) : 0;
 
-// Uppdatera existerande texter
+// Hantera POST-förfrågningar
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!empty($_POST['info'])) {
-        foreach ($_POST['info'] as $id => $text) {
-            $stmt = $conn->prepare("UPDATE information SET information=? WHERE ID=?");
-            $stmt->bind_param("si", $text, $id);
-            $stmt->execute();
-            $stmt->close();
-        }
-    }
 
-    // Lägg till nya textrutor (om man fyllt i)
-    if (!empty($_POST['new_info'])) {
-        foreach ($_POST['new_info'] as $text) {
-            if (trim($text) !== "") {
-                $stmt = $conn->prepare("INSERT INTO information (information, `arskurs ID`) VALUES (?, ?)");
-                $stmt->bind_param("si", $text, $arskursID);
+    // Ta bort en rad helt
+    if (isset($_POST['delete'])) {
+        $deleteID = intval($_POST['delete']);
+        $stmt = $conn->prepare("DELETE FROM information WHERE ID=?");
+        $stmt->bind_param("i", $deleteID);
+        $stmt->execute();
+        $stmt->close();
+        $message = "Raden har raderats!";
+    } else {
+        // Uppdatera existerande texter
+        if (!empty($_POST['info'])) {
+            foreach ($_POST['info'] as $id => $text) {
+                $stmt = $conn->prepare("UPDATE information SET information=? WHERE ID=?");
+                $stmt->bind_param("si", $text, $id);
                 $stmt->execute();
                 $stmt->close();
             }
         }
-    }
 
-    $message = "Informationen har uppdaterats!";
+        // Lägg till nya textrutor (om man fyllt i)
+        if (!empty($_POST['new_info'])) {
+            foreach ($_POST['new_info'] as $text) {
+                if (trim($text) !== "") {
+                    $stmt = $conn->prepare("INSERT INTO information (information, `arskurs ID`) VALUES (?, ?)");
+                    $stmt->bind_param("si", $text, $arskursID);
+                    $stmt->execute();
+                    $stmt->close();
+                }
+            }
+        }
+
+        $message = "Informationen har uppdaterats!";
+    }
 }
 
 // Hämta information för vald årskurs
@@ -61,7 +72,6 @@ if ($arskursID > 0) {
 ?>
 <!DOCTYPE html>
 <html lang="sv">
-
 <head>
     <meta charset="UTF-8">
     <title>Redigera årskurs</title>
@@ -71,24 +81,37 @@ if ($arskursID > 0) {
             width: 100%;
             margin-bottom: 10px;
         }
-
         .info-block {
             margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 6px;
         }
-
         .new-info {
             background: #f9f9f9;
             padding: 10px;
             border: 1px dashed #ccc;
+            margin-bottom: 10px;
+        }
+        .delete-btn {
+            background: #d9534f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background: #c9302c;
         }
     </style>
 </head>
-
 <body>
     <?php if ($arskursID > 0): ?>
         <h1>Redigera information för Årskurs: <?php echo htmlspecialchars($arskursNamn); ?></h1>
         <?php if ($message): ?>
-            <p><b><?php echo $message; ?></b></p><?php endif; ?>
+            <p><b><?php echo $message; ?></b></p>
+        <?php endif; ?>
 
         <form method="post">
             <?php foreach ($infoRows as $row): ?>
@@ -96,6 +119,11 @@ if ($arskursID > 0) {
                     <label for="info<?php echo $row['ID']; ?>">Text <?php echo $row['ID']; ?>:</label><br>
                     <textarea name="info[<?php echo $row['ID']; ?>]" id="info<?php echo $row['ID']; ?>"
                         rows="4"><?php echo htmlspecialchars($row['information'] ?? ""); ?></textarea>
+                    <br>
+                    <button type="submit" name="delete" value="<?php echo $row['ID']; ?>" class="delete-btn"
+                        onclick="return confirm('Är du säker på att du vill ta bort denna rad?')">
+                        Ta bort
+                    </button>
                 </div>
             <?php endforeach; ?>
 
@@ -125,5 +153,4 @@ if ($arskursID > 0) {
         }
     </script>
 </body>
-
 </html>
