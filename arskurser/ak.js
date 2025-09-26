@@ -1,35 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("info-container");
-
-  // Läs vilken årskurs-ID som ska visas (från <body data-arskurs="1"> i HTML)
   const arskursId = document.body.dataset.arskurs;
 
   fetch("ak.php")
     .then(response => response.json())
     .then(data => {
-      if (!data || data.length === 0) {
-        container.innerHTML = "<p>Inga resultat.</p>";
-        return;
-      }
+      if (!data || data.length === 0) return;
 
-      // Filtrera ut endast poster som matchar årskursen
-      const filtered = data.filter(item => item["arskurs ID"] == arskursId);
+      const filtered = data.filter(item => item.arskurs_id == arskursId);
 
       if (filtered.length === 0) {
-        container.innerHTML = "<p>Inga resultat för denna årskurs.</p>";
+        document.querySelectorAll("[id^='info-container-']").forEach(c => {
+          if (c) c.innerHTML = "<li>Inga resultat för denna årskurs.</li>";
+        });
         return;
       }
 
-      let html = "<ul>";
       filtered.forEach(item => {
-        html += `<li>ID: ${item.ID} – Info: ${item.information}</li>`;
+        const container = document.getElementById(`info-container-${item.kategori}`);
+        if (container) {   // 👈 Viktig check
+          const li = document.createElement("li");
+          li.textContent = item.information;
+          container.appendChild(li);
+        }
       });
-      html += "</ul>";
-
-      container.innerHTML = html;
     })
-    .catch(error => {
-      console.error("Fel vid hämtning:", error);
-      container.innerHTML = "<p>Ett fel uppstod.</p>";
-    });
+    .catch(error => console.error("Fel vid hämtning:", error));
 });

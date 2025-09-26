@@ -12,7 +12,8 @@ if ($conn->connect_error) {
     die(json_encode(["error" => "Anslutningsfel: " . $conn->connect_error]));
 }
 
-$sql = "SELECT ID, information, `arskurs ID` FROM information";
+// Alias på kolumnnamnet så vi slipper mellanslag i JSON
+$sql = "SELECT ID, information, `arskurs ID` AS arskurs_id, kategori FROM information";
 $result = $conn->query($sql);
 
 $data = [];

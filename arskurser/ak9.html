@@ -1,14 +1,67 @@
 <!DOCTYPE html>
-<html lang="sv" data-arskurs="1">
+<html lang="sv">
 <head>
   <meta charset="UTF-8">
-  <title>Åk 1</title>
+  <title>Utbildning</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f9f9f9;
+    }
+
+    .accordion details {
+      background: white;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      padding: 5px 10px;
+    }
+
+    .accordion summary {
+      font-weight: bold;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    .accordion ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+  </style>
 </head>
 <body data-arskurs="9">
-  <h1>Information för Åk 9</h1>
-  <div id="info-container"></div>
+
+  <h1>Utbildning – Årskurs 9</h1>
+
+  <div class="accordion">
+    <details>
+      <summary>Information och datakunnighet</summary>
+      <ul id="info-container-1"></ul>
+    </details>
+
+    <details>
+      <summary>Kommunikation och samarbete</summary>
+      <ul id="info-container-2"></ul>
+    </details>
+
+    <details>
+      <summary>Skapa digitalt innehåll</summary>
+      <ul id="info-container-3"></ul>
+    </details>
+
+    <details>
+      <summary>Välmående och miljö</summary>
+      <ul id="info-container-4"></ul>
+    </details>
+
+    <details>
+      <summary>Problemlösning</summary>
+      <ul id="info-container-5"></ul>
+    </details>
+  </div>
+
+    <button onclick="window.location.href='../index.html';">Tillbaka</button>
 
   <script src="ak.js"></script>
-  <a href="../index.html">Tillbaka</a>
-</body>
-</html>
+</body> 

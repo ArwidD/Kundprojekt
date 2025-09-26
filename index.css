@@ -109,3 +109,25 @@ ul li a:hover {
   color: white;
   transform: translateY(-2px);
 }
+
+.accordion details {
+  background: white;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  padding: 5px 10px;
+}
+
+.accordion summary {
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.accordion > details > ul {
+  list-style: disc !important;
+  display: block !important;
+  margin: 10px 0 !important;
+  padding-left: 20px !important;
+  max-width: 100% !important;
+}
