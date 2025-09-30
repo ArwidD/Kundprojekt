@@ -10,6 +10,8 @@ body {
   color: #333;
   line-height: 1.6;
   padding-top: 90px;
+        margin: 20px;
+
 }
 
 .header {
@@ -130,4 +132,11 @@ ul li a:hover {
   margin: 10px 0 !important;
   padding-left: 20px !important;
   max-width: 100% !important;
+}
+.accordion ul li {
+  white-space: normal;
+  word-break: break-word;      /* bryter långa ord vid behov */
+  overflow-wrap: anywhere;     /* tillåter brytning var som helst om nödvändigt */
+  hyphens: auto;               /* valfritt: sätt in bindestreck för bättre läsbarhet */
+  max-width: 100%;
 }

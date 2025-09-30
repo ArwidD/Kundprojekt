@@ -9,7 +9,7 @@ if (empty($_SESSION['user'])) {
 }
 
 // tvinga utloggning om tiden gått ut
-$timeout = 1; // antal sekunder
+$timeout = 600; // antal sekunder
 if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > $timeout)) {
     session_unset();
     session_destroy();
