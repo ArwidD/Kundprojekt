@@ -68,22 +68,119 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="../index.css">
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container h2 {
+            color: #631f63;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .login-forms {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .login-forms form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-forms label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .login-forms input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .login-forms button {
+            padding: 12px;
+            background: #631f63;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .login-forms button:hover {
+            background: #4a164a;
+        }
+
+        .login-forms form:last-child button {
+            background: #888;
+        }
+
+        .login-forms form:last-child button:hover {
+            background: #666;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 20px auto;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            .login-forms input {
+                font-size: 16px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h2>Logga in</h2>
-    <?php if ($error)
-        echo "<p style='color:red;'>$error</p>"; ?>
-    <form method="post">
-        <label>Användarnamn<br><input name="username" required></label><br>
-        <label>Lösenord<br><input type="password" name="password" required></label><br><br>
-        <button type="submit">Logga in</button>
-    </form>
-    <br>
-    <form action="../redigera/redigera.html">
-        <button type="submit">Tillbaka</button>
-    </form>
+    <header class="header">
+        <div class="logo-area">
+            <div class="site-name">Utbildning.ax</div>
+            <div class="site-slogan">Pedagogisk resurs på Åland</div>
+        </div>
+    </header>
+    <main>
+        <div class="login-container">
+            <h2>Logga in</h2>
+            <?php if ($error)
+                echo "<p style='color:red; text-align: center;'>$error</p>"; ?>
+            <div class="login-forms">
+                <form method="post">
+                    <label>Användarnamn</label>
+                    <input name="username" required>
+                    <label>Lösenord</label>
+                    <input type="password" name="password" required>
+                    <button type="submit">Logga in</button>
+                </form>
+                <form action="../redigera/redigera.html">
+                    <button type="submit">Tillbaka</button>
+                </form>
+            </div>
+        </div>
+    </main>
 </body>
 </body>
 

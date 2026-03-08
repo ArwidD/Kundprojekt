@@ -91,39 +91,141 @@ if ($arskursID > 0) {
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redigera årskurs</title>
     <link rel="stylesheet" href="../index.css">
     <style>
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
         textarea {
             width: 100%;
+            max-width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        select {
+            width: 100%;
+            max-width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
             margin-bottom: 10px;
         }
 
         .info-block {
             margin-bottom: 20px;
             border: 1px solid #ddd;
-            padding: 10px;
+            padding: 15px;
             border-radius: 6px;
+            background: white;
+        }
+
+        .info-block label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
         }
 
         .new-info {
             background: #f9f9f9;
-            padding: 10px;
+            padding: 15px;
             border: 1px dashed #ccc;
             margin-bottom: 10px;
+            border-radius: 4px;
         }
 
         .delete-btn {
             background: #d9534f;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95rem;
+            width: 100%;
+            margin-top: 10px;
         }
 
         .delete-btn:hover {
             background: #c9302c;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        h3 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 0 10px;
+            }
+
+            .info-block {
+                padding: 12px;
+            }
+
+            .new-info {
+                padding: 12px;
+            }
+
+
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            main {
+                padding: 0 8px;
+            }
+
+            .info-block {
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+
+            textarea {
+                font-size: 16px;
+                padding: 8px;
+            }
+
+            select {
+                font-size: 16px;
+                padding: 8px;
+            }
+
+            .delete-btn {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -140,61 +242,61 @@ if ($arskursID > 0) {
             </button>
         </div>
     </header>
-    <?php if ($arskursID > 0): ?>
-        <h1>Redigera information för Årskurs: <?php echo htmlspecialchars($arskursNamn); ?></h1>
-        <?php if ($message): ?>
-            <p><b><?php echo $message; ?></b></p><?php endif; ?>
+    <main>
+        <?php if ($arskursID > 0): ?>
+            <h1>Redigera information för Årskurs: <?php echo htmlspecialchars($arskursNamn); ?></h1>
+            <form method="post">
+                <?php foreach ($infoRows as $row): ?>
+                    <div class="info-block">
+                        <label for="info<?php echo $row['ID']; ?>">Text <?php echo $row['ID']; ?>:</label>
+                        <textarea name="info[<?php echo $row['ID']; ?>]" id="info<?php echo $row['ID']; ?>"
+                            rows="3"><?php echo htmlspecialchars($row['information']); ?></textarea>
 
-        <form method="post">
-            <?php foreach ($infoRows as $row): ?>
-                <div class="info-block">
-                    <label for="info<?php echo $row['ID']; ?>">Text <?php echo $row['ID']; ?>:</label><br>
-                    <textarea name="info[<?php echo $row['ID']; ?>]" id="info<?php echo $row['ID']; ?>"
-                        rows="3"><?php echo htmlspecialchars($row['information']); ?></textarea><br>
+                        <label>Kategori:</label>
+                        <select name="kategori[<?php echo $row['ID']; ?>]">
+                            <option value="1" <?php if ($row['kategori'] == 1)
+                                echo "selected"; ?>>Information och datakunnighet
+                            </option>
+                            <option value="2" <?php if ($row['kategori'] == 2)
+                                echo "selected"; ?>>Kommunikation och samarbete
+                            </option>
+                            <option value="3" <?php if ($row['kategori'] == 3)
+                                echo "selected"; ?>>Skapa digitalt innehåll
+                            </option>
+                            <option value="4" <?php if ($row['kategori'] == 4)
+                                echo "selected"; ?>>Välmående och miljö</option>
+                            <option value="5" <?php if ($row['kategori'] == 5)
+                                echo "selected"; ?>>Problemlösning</option>
+                        </select>
 
-                    <label>Kategori:</label>
-                    <select name="kategori[<?php echo $row['ID']; ?>]">
-                        <option value="1" <?php if ($row['kategori'] == 1)
-                            echo "selected"; ?>>Information och datakunnighet
-                        </option>
-                        <option value="2" <?php if ($row['kategori'] == 2)
-                            echo "selected"; ?>>Kommunikation och samarbete
-                        </option>
-                        <option value="3" <?php if ($row['kategori'] == 3)
-                            echo "selected"; ?>>Skapa digitalt innehåll</option>
-                        <option value="4" <?php if ($row['kategori'] == 4)
-                            echo "selected"; ?>>Välmående och miljö</option>
-                        <option value="5" <?php if ($row['kategori'] == 5)
-                            echo "selected"; ?>>Problemlösning</option>
-                    </select>
-                    <br><br>
+                        <button type="submit" name="delete" value="<?php echo $row['ID']; ?>" class="delete-btn"
+                            onclick="return confirm('Är du säker på att du vill ta bort denna rad?')">Ta bort</button>
+                    </div>
+                <?php endforeach; ?>
 
-                    <button type="submit" name="delete" value="<?php echo $row['ID']; ?>" class="delete-btn"
-                        onclick="return confirm('Är du säker på att du vill ta bort denna rad?')">Ta bort</button>
+                <h3>Lägg till ny information</h3>
+                <div id="new-info-container">
+                    <div class="new-info">
+                        <textarea name="new_info[]" rows="3" placeholder="Skriv ny information här..."></textarea>
+                        <label>Kategori:</label>
+                        <select name="new_kategori[]">
+                            <option value="1">Information och datakunnighet</option>
+                            <option value="2">Kommunikation och samarbete</option>
+                            <option value="3">Skapa digitalt innehåll</option>
+                            <option value="4">Välmående och miljö</option>
+                            <option value="5">Problemlösning</option>
+                        </select>
+                    </div>
                 </div>
-            <?php endforeach; ?>
-
-            <h3>Lägg till ny information</h3>
-            <div id="new-info-container">
-                <div class="new-info">
-                    <textarea name="new_info[]" rows="3" placeholder="Skriv ny information här..."></textarea>
-                    <label>Kategori:</label>
-                    <select name="new_kategori[]">
-                        <option value="1">Information och datakunnighet</option>
-                        <option value="2">Kommunikation och samarbete</option>
-                        <option value="3">Skapa digitalt innehåll</option>
-                        <option value="4">Välmående och miljö</option>
-                        <option value="5">Problemlösning</option>
-                    </select>
+                <div class="button-group">
+                    <button type="button" onclick="addNewInfo()">Lägg till en ruta till</button>
+                    <input type="submit" value="Spara ändringar">
                 </div>
-            </div>
-            <button type="button" onclick="addNewInfo()">Lägg till en ruta till</button>
-            <br><br>
-            <input type="submit" value="Spara ändringar">
-        </form>
-    <?php else: ?>
-        <p>Ingen årskurs vald.</p>
-    <?php endif; ?>
+            </form>
+        <?php else: ?>
+            <p>Ingen årskurs vald.</p>
+        <?php endif; ?>
+    </main>
 
 
     <script>

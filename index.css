@@ -10,8 +10,7 @@ body {
   color: #333;
   line-height: 1.6;
   padding-top: 90px;
-        margin: 20px;
-
+  margin: 20px;
 }
 
 .header {
@@ -135,8 +134,209 @@ ul li a:hover {
 }
 .accordion ul li {
   white-space: normal;
-  word-break: break-word;      
-  overflow-wrap: anywhere;     
-  hyphens: auto;             
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  hyphens: auto;
   max-width: 100%;
+}
+
+/* Responsiv design för tablets och mindre skärmar */
+@media (max-width: 1024px) {
+  body {
+    padding-top: 90px;
+    margin: 15px;
+  }
+
+  .header {
+    padding: 15px 30px;
+  }
+
+  .main-title {
+    margin: 30px auto;
+    max-width: 100%;
+    padding: 0 15px;
+  }
+
+  ul {
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+
+/* Responsiv design för mobila enheter */
+@media (max-width: 768px) {
+  body {
+    padding-top: 100px;
+    margin: 10px;
+  }
+
+  .header {
+    height: auto;
+    padding: 12px 20px;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .logo-area {
+    width: 100%;
+  }
+
+  .site-name {
+    font-size: 1.3rem;
+  }
+
+  .site-slogan {
+    font-size: 0.8rem;
+  }
+
+  .buttons {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .buttons button {
+    padding: 7px 12px;
+    font-size: 0.9rem;
+  }
+
+  .main-title {
+    margin: 20px auto;
+    padding: 0 10px;
+  }
+
+  .main-title h1 {
+    font-size: 1.8rem;
+  }
+
+  .main-title p {
+    font-size: 1rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    margin: 15px 0;
+  }
+
+  ul {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+    margin: 15px auto;
+    padding: 10px;
+  }
+
+  ul li a {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .accordion {
+    margin: 0 5px;
+  }
+
+  .accordion details {
+    margin-bottom: 12px;
+    padding: 8px;
+  }
+
+  .accordion summary {
+    padding: 8px;
+    font-size: 1rem;
+  }
+
+  .accordion > details > ul {
+    margin: 8px 0 !important;
+    padding-left: 15px !important;
+  }
+
+  .accordion ul li {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+  }
+}
+
+/* Responsiv design för små mobila enheter (under 480px) */
+@media (max-width: 480px) {
+  body {
+    padding-top: 110px;
+    margin: 5px;
+  }
+
+  .header {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .site-name {
+    font-size: 1.1rem;
+  }
+
+  .site-slogan {
+    font-size: 0.75rem;
+  }
+
+  .buttons {
+    gap: 5px;
+  }
+
+  .buttons button {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+
+  .main-title {
+    margin: 15px auto;
+    padding: 0 8px;
+  }
+
+  .main-title h1 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+
+  .main-title p {
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    margin: 12px 0;
+  }
+
+  ul {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 8px;
+    margin: 12px auto;
+    padding: 8px;
+  }
+
+  ul li a {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+
+  .accordion {
+    margin: 0;
+  }
+
+  .accordion details {
+    margin-bottom: 10px;
+    padding: 6px;
+  }
+
+  .accordion summary {
+    padding: 6px;
+    font-size: 0.95rem;
+  }
+
+  .accordion > details > ul {
+    margin: 6px 0 !important;
+    padding-left: 12px !important;
+  }
+
+  .accordion ul li {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+  }
 }
