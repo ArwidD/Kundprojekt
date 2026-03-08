@@ -135,8 +135,8 @@ ul li a:hover {
 }
 .accordion ul li {
   white-space: normal;
-  word-break: break-word;      /* bryter långa ord vid behov */
-  overflow-wrap: anywhere;     /* tillåter brytning var som helst om nödvändigt */
-  hyphens: auto;               /* valfritt: sätt in bindestreck för bättre läsbarhet */
+  word-break: break-word;      
+  overflow-wrap: anywhere;     
+  hyphens: auto;             
   max-width: 100%;
 }

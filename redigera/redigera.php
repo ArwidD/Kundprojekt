@@ -88,73 +88,121 @@ if ($arskursID > 0) {
 ?>
 <!DOCTYPE html>
 <html lang="sv">
+
 <head>
     <meta charset="UTF-8">
     <title>Redigera årskurs</title>
     <link rel="stylesheet" href="../index.css">
     <style>
-        textarea { width: 100%; margin-bottom: 10px; }
-        .info-block { margin-bottom: 20px; border: 1px solid #ddd; padding: 10px; border-radius: 6px; }
-        .new-info { background: #f9f9f9; padding: 10px; border: 1px dashed #ccc; margin-bottom: 10px; }
-        .delete-btn { background: #d9534f; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
-        .delete-btn:hover { background: #c9302c; }
+        textarea {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .info-block {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .new-info {
+            background: #f9f9f9;
+            padding: 10px;
+            border: 1px dashed #ccc;
+            margin-bottom: 10px;
+        }
+
+        .delete-btn {
+            background: #d9534f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background: #c9302c;
+        }
     </style>
 </head>
+
 <body>
-<?php if ($arskursID > 0): ?>
-    <h1>Redigera information för Årskurs: <?php echo htmlspecialchars($arskursNamn); ?></h1>
-    <?php if ($message): ?><p><b><?php echo $message; ?></b></p><?php endif; ?>
-
-    <form method="post">
-        <?php foreach ($infoRows as $row): ?>
-            <div class="info-block">
-                <label for="info<?php echo $row['ID']; ?>">Text <?php echo $row['ID']; ?>:</label><br>
-                <textarea name="info[<?php echo $row['ID']; ?>]" id="info<?php echo $row['ID']; ?>" rows="3"><?php echo htmlspecialchars($row['information']); ?></textarea><br>
-
-                <label>Kategori:</label>
-                <select name="kategori[<?php echo $row['ID']; ?>]">
-                    <option value="1" <?php if ($row['kategori']==1) echo "selected"; ?>>Information och datakunnighet</option>
-                    <option value="2" <?php if ($row['kategori']==2) echo "selected"; ?>>Kommunikation och samarbete</option>
-                    <option value="3" <?php if ($row['kategori']==3) echo "selected"; ?>>Skapa digitalt innehåll</option>
-                    <option value="4" <?php if ($row['kategori']==4) echo "selected"; ?>>Välmående och miljö</option>
-                    <option value="5" <?php if ($row['kategori']==5) echo "selected"; ?>>Problemlösning</option>
-                </select>
-                <br><br>
-
-                <button type="submit" name="delete" value="<?php echo $row['ID']; ?>" class="delete-btn" onclick="return confirm('Är du säker på att du vill ta bort denna rad?')">Ta bort</button>
-            </div>
-        <?php endforeach; ?>
-
-        <h3>Lägg till ny information</h3>
-        <div id="new-info-container">
-            <div class="new-info">
-                <textarea name="new_info[]" rows="3" placeholder="Skriv ny information här..."></textarea>
-                <label>Kategori:</label>
-                <select name="new_kategori[]">
-                    <option value="1">Information och datakunnighet</option>
-                    <option value="2">Kommunikation och samarbete</option>
-                    <option value="3">Skapa digitalt innehåll</option>
-                    <option value="4">Välmående och miljö</option>
-                    <option value="5">Problemlösning</option>
-                </select>
-            </div>
+    <header class="header">
+        <div class="logo-area">
+            <div class="site-name">Utbildning.ax</div>
+            <div class="site-slogan">Pedagogisk resurs på Åland</div>
         </div>
-        <button type="button" onclick="addNewInfo()">Lägg till en ruta till</button>
-        <br><br>
-        <input type="submit" value="Spara ändringar">
-    </form>
-<?php else: ?>
-    <p>Ingen årskurs vald.</p>
-<?php endif; ?>
+        <div class="buttons">
+            <button onclick="window.location.href='redigera.html';">
+                Tillbaka
+            </button>
+        </div>
+    </header>
+    <?php if ($arskursID > 0): ?>
+        <h1>Redigera information för Årskurs: <?php echo htmlspecialchars($arskursNamn); ?></h1>
+        <?php if ($message): ?>
+            <p><b><?php echo $message; ?></b></p><?php endif; ?>
 
-<p><a href="redigera.html">Tillbaka</a></p>
+        <form method="post">
+            <?php foreach ($infoRows as $row): ?>
+                <div class="info-block">
+                    <label for="info<?php echo $row['ID']; ?>">Text <?php echo $row['ID']; ?>:</label><br>
+                    <textarea name="info[<?php echo $row['ID']; ?>]" id="info<?php echo $row['ID']; ?>"
+                        rows="3"><?php echo htmlspecialchars($row['information']); ?></textarea><br>
 
-<script>
-function addNewInfo() {
-    const container = document.getElementById('new-info-container');
-    const div = document.createElement('div');
-    div.classList.add('new-info');
-    div.innerHTML = `
+                    <label>Kategori:</label>
+                    <select name="kategori[<?php echo $row['ID']; ?>]">
+                        <option value="1" <?php if ($row['kategori'] == 1)
+                            echo "selected"; ?>>Information och datakunnighet
+                        </option>
+                        <option value="2" <?php if ($row['kategori'] == 2)
+                            echo "selected"; ?>>Kommunikation och samarbete
+                        </option>
+                        <option value="3" <?php if ($row['kategori'] == 3)
+                            echo "selected"; ?>>Skapa digitalt innehåll</option>
+                        <option value="4" <?php if ($row['kategori'] == 4)
+                            echo "selected"; ?>>Välmående och miljö</option>
+                        <option value="5" <?php if ($row['kategori'] == 5)
+                            echo "selected"; ?>>Problemlösning</option>
+                    </select>
+                    <br><br>
+
+                    <button type="submit" name="delete" value="<?php echo $row['ID']; ?>" class="delete-btn"
+                        onclick="return confirm('Är du säker på att du vill ta bort denna rad?')">Ta bort</button>
+                </div>
+            <?php endforeach; ?>
+
+            <h3>Lägg till ny information</h3>
+            <div id="new-info-container">
+                <div class="new-info">
+                    <textarea name="new_info[]" rows="3" placeholder="Skriv ny information här..."></textarea>
+                    <label>Kategori:</label>
+                    <select name="new_kategori[]">
+                        <option value="1">Information och datakunnighet</option>
+                        <option value="2">Kommunikation och samarbete</option>
+                        <option value="3">Skapa digitalt innehåll</option>
+                        <option value="4">Välmående och miljö</option>
+                        <option value="5">Problemlösning</option>
+                    </select>
+                </div>
+            </div>
+            <button type="button" onclick="addNewInfo()">Lägg till en ruta till</button>
+            <br><br>
+            <input type="submit" value="Spara ändringar">
+        </form>
+    <?php else: ?>
+        <p>Ingen årskurs vald.</p>
+    <?php endif; ?>
+
+
+    <script>
+        function addNewInfo() {
+            const container = document.getElementById('new-info-container');
+            const div = document.createElement('div');
+            div.classList.add('new-info');
+            div.innerHTML = `
         <textarea name="new_info[]" rows="3" placeholder="Skriv ny information här..."></textarea>
         <label>Kategori:</label>
         <select name="new_kategori[]">
@@ -165,8 +213,9 @@ function addNewInfo() {
             <option value="5">Problemlösning</option>
         </select>
     `;
-    container.appendChild(div);
-}
-</script>
+            container.appendChild(div);
+        }
+    </script>
 </body>
+
 </html>

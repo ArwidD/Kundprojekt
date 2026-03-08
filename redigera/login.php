@@ -24,22 +24,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $u = $_POST['username'] ?? '';
     $p = $_POST['password'] ?? '';
 
-    $stmt = $conn->prepare("SELECT id, password FROM anvandare WHERE username=?");
+    echo "DEBUG INFO:<br>";
+    echo "Användarnamn inmatat: '" . htmlspecialchars($u) . "'<br>";
+    echo "Lösenord inmatat: '" . htmlspecialchars($p) . "'<br><br>";
+
+    $stmt = $conn->prepare("SELECT id, username, password FROM anvandare WHERE username=?");
     $stmt->bind_param("s", $u);
     $stmt->execute();
     $res = $stmt->get_result();
-    if ($row = $res->fetch_assoc()) {
-        if (password_verify($p, $row['password'])) {
-            $_SESSION['user'] = $u;
 
-            // Redirect tillbaka till sidan man försökte nå
+    echo "Antal rader funna i DB: " . $res->num_rows . "<br><br>";
+
+    if ($row = $res->fetch_assoc()) {
+        echo "Användare hittad i DB:<br>";
+        echo "- ID: " . $row['id'] . "<br>";
+        echo "- Username: '" . htmlspecialchars($row['username']) . "'<br>";
+        echo "- Hash: " . substr($row['password'], 0, 20) . "...<br><br>";
+
+        $verify_result = password_verify($p, $row['password']);
+        echo "password_verify() resultat: " . ($verify_result ? 'TRUE ✓' : 'FALSE ✗') . "<br><br>";
+
+        if ($verify_result) {
+            $_SESSION['user'] = $u;
             $goto = $_SESSION['redirect_after_login'] ?? '/redigera.php';
             unset($_SESSION['redirect_after_login']);
+            echo "Login lyckades! Redirectar till: $goto<br>";
+            echo "<a href='$goto'>Klicka här om du inte redirectas automatiskt</a>";
             header("Location: $goto");
             exit;
+        } else {
+            echo "<strong style='color:red;'>Lösenordet matchade inte!</strong><br>";
         }
+    } else {
+        echo "<strong style='color:red;'>Ingen användare hittades med det användarnamnet!</strong><br>";
     }
-    $error = "Fel användarnamn eller lösenord.";
+
+    echo "<br><a href='login.php'>Tillbaka till login</a>";
+    die(); // Stoppa här för att se all debug-info
 }
 ?>
 <!DOCTYPE html>

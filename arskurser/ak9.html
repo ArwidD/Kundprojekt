@@ -1,42 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="sv">
-<head>
-  <meta charset="UTF-8">
-  <title>Utbildning</title>
-  <link rel="stylesheet" href="../index.css">
-</head>
-<body data-arskurs="9">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Utbildning</title>
+    <link rel="stylesheet" href="../index.css" />
+  </head>
+  <body data-arskurs="9">
+    <header class="header">
+      <div class="logo-area">
+        <div class="site-name">Utbildning.ax</div>
+        <div class="site-slogan">Pedagogisk resurs på Åland</div>
+      </div>
+      <div class="buttons">
+        <button onclick="window.location.href = '../index.html'">
+          Tillbaka
+        </button>
+      </div>
+    </header>
+    <h1>Utbildning – Årskurs 9</h1>
 
-  <h1>Utbildning – Årskurs 9</h1>
+    <div class="accordion">
+      <details>
+        <summary>Information och datakunnighet</summary>
+        <ul id="info-container-1"></ul>
+      </details>
 
-  <div class="accordion">
-    <details>
-      <summary>Information och datakunnighet</summary>
-      <ul id="info-container-1"></ul>
-    </details>
+      <details>
+        <summary>Kommunikation och samarbete</summary>
+        <ul id="info-container-2"></ul>
+      </details>
 
-    <details>
-      <summary>Kommunikation och samarbete</summary>
-      <ul id="info-container-2"></ul>
-    </details>
+      <details>
+        <summary>Skapa digitalt innehåll</summary>
+        <ul id="info-container-3"></ul>
+      </details>
 
-    <details>
-      <summary>Skapa digitalt innehåll</summary>
-      <ul id="info-container-3"></ul>
-    </details>
+      <details>
+        <summary>Välmående och miljö</summary>
+        <ul id="info-container-4"></ul>
+      </details>
 
-    <details>
-      <summary>Välmående och miljö</summary>
-      <ul id="info-container-4"></ul>
-    </details>
+      <details>
+        <summary>Problemlösning</summary>
+        <ul id="info-container-5"></ul>
+      </details>
+    </div>
 
-    <details>
-      <summary>Problemlösning</summary>
-      <ul id="info-container-5"></ul>
-    </details>
-  </div>
+    <button onclick="window.location.href = '../index.html'">Tillbaka</button>
 
-    <button onclick="window.location.href='../index.html';">Tillbaka</button>
-
-  <script src="ak.js"></script>
-</body> 
+    <script src="ak.js"></script>
+  </body>
+</html>
